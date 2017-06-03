@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="guestlist">
+	<main ng-controller="mainController">
+		<div>
+			<h1>Guestlist Total: {{totalGuests}}</h1>
+			<h1>Sealing Guestlist total: {{sealingGuests}}</h1>
+		</div>
+
+		<div class="options"> Sort by:
+			<select ng-model='sortProp'> 
+				<option value='name'>Name</option>
+				<option value='sealing'>Sealing</option>
+				<option value='invited'>Invited</option>
+				<option value='attendance_importance'>Importance</option>
+			</select>
+		</div>
+		<br>
+		<br>
+		<div class="options"> Show:
+			<select ng-model="filterOptions">
+				<option>All</option>
+				<option value="sealing">Sealing</option>
+				<option value="not sealing">Not Sealing</option>
+				<option value="invited">Invited</option>
+				<option value="not invited">Not Invited</option>
+				<option value="1">Immediate Family</option>
+				<option value="2">Extended Family/Close Friends</option>
+				<option value="3">Good Friends</option>
+				<option value="4">Nice to Have</option>
+			</select>
+		</div>
+		<br>
+		<br>
+		<div class="search">
+			<input type="text" ng-model='search' placeholder="Search for Guests...">
+		</div>
+
+		<div class= 'container'>
+			<ul class="guests">
+				<li class="guest" ng-repeat="guest in guests | filter: filterObject| orderBy: sortProp">
+					<p>{{guest.name}}</p>
+					<p>{{guest.num_guests}} Guests</p>
+					<p>Sealing: <span ng-hide="guest.sealing"><strong>X</strong></span><span ng-show="guest.sealing"><strong>Y</strong></span></p>
+					<p>invited: <span ng-hide="guest.invited"><strong>X</strong></span><span ng-show="guest.invited"><strong>Y</strong></span></p>
+
+				</li>
+			</ul>
+		</div>
+	</main>
+	<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js'></script>
+	<script type="text/javascript" src='./js/app.js'></script>
+	<script type="text/javascript" src='./js/guestService.js'></script>
+	<script type="text/javascript" src='./js/mainController.js'></script>
+</body>
+</html>
